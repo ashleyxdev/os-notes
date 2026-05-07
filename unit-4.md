@@ -622,3 +622,64 @@ OPT is theoretically best but impractical. LRU closely approximates OPT and is w
 
 ---
 
+## 🔄 Topic 17: Page Replacement Policies
+
+### Exam Question
+
+> **"Describe the following term in brief:**
+
+1. Principle of locality
+2. Belady’s anomaly"** *(8 marks)*
+
+---
+
+### 1. 🔹 Principle of Locality
+
+**Definition:**
+The principle of locality states that programs tend to **access a small portion of their address space at any given time**, rather than accessing all pages uniformly.
+
+There are **two types:**
+
+| Type | Description | Example |
+|---|---|---|
+| **Temporal Locality** | A recently accessed page is **likely to be accessed again soon** | Loop variables accessed repeatedly |
+| **Spatial Locality** | Pages **near a recently accessed page** are likely to be accessed soon | Sequential array traversal |
+
+**Significance:**
+- This principle is the **theoretical foundation** of virtual memory and demand paging.
+- It justifies why keeping only **recently used pages** in RAM works efficiently.
+- LRU algorithm is directly based on this principle.
+
+```
+Example:
+for(i = 0; i < 100; i++)     ← Temporal locality (loop variable i)
+    sum += array[i];          ← Spatial locality (array accessed sequentially)
+```
+
+---
+
+### 2. 🔹 Belady's Anomaly
+
+**Definition:**
+Belady's Anomaly is the **counterintuitive phenomenon** where **increasing the number of frames results in MORE page faults** instead of fewer, observed in the **FIFO** page replacement algorithm.
+
+```
+Example (FIFO):
+Reference String: 1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5
+
+With 3 frames → 9 page faults
+With 4 frames → 10 page faults  ← MORE faults! (Anomaly)
+```
+
+**Key Points:**
+- Occurs **only in FIFO** — not in LRU or OPT.
+- LRU and OPT belong to a class called **stack algorithms** — they are **immune** to Belady's Anomaly.
+- Stack algorithms guarantee: more frames = fewer or equal page faults (never more).
+
+---
+
+### 💡 Exam Tips
+- **Locality** — always mention **both types** (temporal + spatial) with examples.
+- **Belady's Anomaly** — always name **FIFO** as the algorithm that suffers from it and mention that **LRU and OPT do not** suffer — this shows complete understanding.
+- These are common **2–3 mark short answer questions** — keep answers concise but include all keywords.
+

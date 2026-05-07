@@ -1,0 +1,6 @@
+
+# Watcher artifacts
+.watcher.pid
+watch-and-push.sh
+.watcher.log
+

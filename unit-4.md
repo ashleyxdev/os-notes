@@ -620,3 +620,5 @@ OPT < LRU ≈ SC ≈ NRU < FIFO
 **Conclusion:**
 OPT is theoretically best but impractical. LRU closely approximates OPT and is widely used in practice. FIFO is simplest but least efficient. Second Chance and NRU offer good performance with low implementation overhead.
 
+---
+

@@ -627,9 +627,8 @@ OPT is theoretically best but impractical. LRU closely approximates OPT and is w
 ### Exam Question
 
 > **"Describe the following term in brief:**
-
-1. Principle of locality
-2. Belady’s anomaly"** *(8 marks)*
+> **1. Principle of locality**
+> **2. Belady’s anomaly"** *(8 marks)*
 
 ---
 

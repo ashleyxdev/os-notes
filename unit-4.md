@@ -396,3 +396,60 @@ Physical Address = (1 × 4096) + 100 = 4196
 Paging is a highly effective memory management technique that solves external fragmentation while maintaining a simple programming model. It forms the foundation of modern virtual memory systems and is used in all contemporary operating systems.
 
 ---
+
+## 📦 Topic 6: Page Allocation
+
+### Exam Question
+
+> **"Explain the different page allocation schemes. Differentiate between local and global page allocation."** *(6 marks)*
+
+---
+
+### Model Answer
+
+**Introduction:**
+Page allocation refers to the strategy used by the OS to assign physical memory frames to process pages. The OS must balance fair allocation, system throughput, and prevention of thrashing through careful frame assignment policies.
+
+**Allocation Schemes:**
+
+**1. Equal Allocation:**
+- Available frames divided equally among all processes.
+- Simple but ignores differences in process sizes.
+- Example: 100 frames, 5 processes → 20 frames each.
+
+**2. Proportional Allocation:**
+- Frames allocated proportionally based on process size.
+- Formula: Frames for process i = (Size_i / Total Size) × Total Frames
+- Fairer and more efficient than equal allocation.
+
+**3. Priority Allocation:**
+- Frames allocated based on process priority.
+- Higher priority processes receive more frames.
+- Low priority processes may lose frames to high priority ones.
+
+**Local vs Global Allocation:**
+
+**Local Allocation:**
+- Page fault resolved by replacing one of the **process's own pages**.
+- Each process has a fixed set of frames.
+- Performance is self-contained and predictable.
+
+**Global Allocation:**
+- Page fault resolved by taking a frame from **any process** in the system.
+- Frame sets are dynamic — change based on demand.
+- Better overall throughput but less predictable per-process performance.
+
+```
+Local:   Process A fault → replaces A's own page
+Global:  Process A fault → can take B's or C's frame
+```
+
+**Minimum Frame Requirement:**
+- Every process must receive at least a minimum number of frames.
+- Determined by instruction set — typically 2–3 frames minimum.
+- Too few frames → excessive page faults → thrashing.
+
+**Conclusion:**
+Proportional allocation with global replacement is the most efficient strategy used in modern OSes. It balances fair frame distribution with dynamic adaptability, maximizing system throughput while minimizing thrashing.
+
+---

@@ -510,3 +510,59 @@ Page Table:
 Virtual memory is a cornerstone of modern OS design. By combining RAM and disk storage transparently, it enables efficient multiprogramming, process isolation, and execution of large processes — all while hiding physical memory limitations from both programmers and processes.
 
 ---
+
+## 📥 Topic 16: Demand Paging
+
+### 1. Concept Explanation
+
+### Exam Question
+
+> **"Explain demand paging. Describe the steps involved in handling a page fault. Also explain the concept of thrashing."** *(8 marks)*
+
+---
+
+### Model Answer
+
+**Introduction:**
+Demand paging is a virtual memory technique in which pages of a process are loaded into physical memory **only when they are accessed**, rather than loading the entire process at startup. It is based on the principle of loading pages **on demand**, reducing memory usage and enabling larger processes to run.
+
+**Working of Demand Paging:**
+- Process begins execution with few or no pages in RAM.
+- Each memory access checks the **valid-invalid bit** in the page table.
+- If valid → page is in RAM → access proceeds normally.
+- If invalid → page is on disk → **page fault** is triggered.
+
+**Page Fault Handling Steps:**
+1. CPU accesses a page → valid-invalid bit = 0 (invalid).
+2. **Page fault trap** generated → control transfers to OS.
+3. OS verifies the memory reference is legal.
+4. OS finds a **free frame** in RAM (or performs page replacement).
+5. OS loads the required page from **disk (swap space)** into the free frame.
+6. **Page table updated** → valid bit set to 1, frame number recorded.
+7. **Instruction restarted** → process resumes normally.
+
+**Diagram:**
+```
+CPU → Page Fault → OS Trap → Find Free Frame
+  → Load from Disk → Update Page Table → Restart Instruction
+```
+
+**Performance — Effective Access Time:**
+```
+EAT = (1-p) × MAT + p × PFT
+p   = page fault rate
+MAT = memory access time
+PFT = page fault time
+```
+Even a small page fault rate drastically increases EAT — minimizing page faults is critical.
+
+**Thrashing:**
+- Occurs when too few frames are allocated to a process.
+- Process spends more time swapping pages than executing.
+- CPU utilization drops → OS loads more processes → worsens page fault rate.
+- **Solution:** Working Set Model, page fault frequency control, reduce multiprogramming degree.
+
+**Conclusion:**
+Demand paging efficiently utilizes memory by loading only needed pages, enabling greater multiprogramming. However, careful frame allocation is essential to prevent thrashing, which can severely degrade system performance.
+
+---

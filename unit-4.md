@@ -453,3 +453,60 @@ Global:  Process A fault → can take B's or C's frame
 Proportional allocation with global replacement is the most efficient strategy used in modern OSes. It balances fair frame distribution with dynamic adaptability, maximizing system throughput while minimizing thrashing.
 
 ---
+
+## 💫 Topic 10: Virtual Memory — Basics
+
+### 1. Concept Explanation
+
+### Exam Question
+
+> **"What is virtual memory? Explain its benefits, implementation, and the role of the valid-invalid bit in a paging system."** *(8 marks)*
+
+---
+
+### Model Answer
+
+**Introduction:**
+Virtual memory is a memory management technique that allows processes to execute without being fully loaded into physical RAM. It creates an abstraction that gives each process the illusion of a large, contiguous memory space by using **disk storage as an extension of RAM**.
+
+**Benefits of Virtual Memory:**
+- Allows processes **larger than physical RAM** to execute.
+- Increases **degree of multiprogramming** — more processes fit simultaneously.
+- Only actively needed pages reside in RAM — **efficient memory utilization**.
+- Each process has its own isolated virtual address space — **process protection**.
+- Programmer freed from managing physical memory constraints.
+
+**Virtual Address Space:**
+- Each process has a virtual address space containing code, data, heap, and stack.
+- A **sparse region** exists between heap and stack — uses no physical memory until accessed.
+- This sparse region enables efficient use of large address spaces.
+
+**Implementation — Demand Paging:**
+- Pages loaded into RAM **only when accessed**.
+- Pages not in RAM remain on **disk (swap space)**.
+- When a page is accessed and not in RAM → **page fault** occurs → OS loads page from disk.
+
+**Valid-Invalid Bit:**
+The page table is extended with a valid-invalid bit:
+- **Valid (1)** → Page is present in RAM → normal access.
+- **Invalid (0)** → Page is on disk → page fault triggered → OS loads page.
+
+```
+Page Table:
+┌──────┬───────┬──────────┐
+│ Page │ Frame │  V/I Bit │
+├──────┼───────┼──────────┤
+│  0   │   3   │  Valid   │ → RAM access
+│  1   │   -   │ Invalid  │ → Page Fault!
+│  2   │   7   │  Valid   │ → RAM access
+└──────┴───────┴──────────┘
+```
+
+**Swap Space:**
+- Dedicated disk area storing pages not currently in RAM.
+- Linux uses **swap partition**, Windows uses **pagefile.sys**.
+
+**Conclusion:**
+Virtual memory is a cornerstone of modern OS design. By combining RAM and disk storage transparently, it enables efficient multiprogramming, process isolation, and execution of large processes — all while hiding physical memory limitations from both programmers and processes.
+
+---

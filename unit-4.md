@@ -566,3 +566,57 @@ Even a small page fault rate drastically increases EAT — minimizing page fault
 Demand paging efficiently utilizes memory by loading only needed pages, enabling greater multiprogramming. However, careful frame allocation is essential to prevent thrashing, which can severely degrade system performance.
 
 ---
+
+## 🔄 Topic 17: Page Replacement Policies
+
+### Exam Question
+
+> **"Explain the following page replacement algorithms with examples: OPT, FIFO, LRU, Second Chance, and NRU. Compare their performance."** *(8 marks)*
+
+---
+
+### Model Answer
+
+**Introduction:**
+Page replacement algorithms determine which page to evict from RAM when a page fault occurs and no free frame is available. The goal is to minimize page faults and improve system performance.
+
+**1. OPT (Optimal):**
+- Replaces page not needed for longest time in future.
+- Theoretical — requires future knowledge.
+- Gives minimum possible page faults — used as benchmark.
+- Page Faults = **7** (for given reference string).
+
+**2. FIFO:**
+- Replaces oldest page in memory (maintained via queue).
+- Simple but suffers from **Belady's Anomaly**.
+- Page Faults = **9**.
+
+**3. Second Chance (Clock):**
+- Improvement over FIFO using **R (reference) bit**.
+- R=1 → give second chance (reset R=0, move to back).
+- R=0 → replace immediately.
+- Avoids replacing recently used pages.
+- No Belady's Anomaly.
+
+**4. NRU:**
+- Uses **R (referenced)** and **M (modified)** bits.
+- Classifies pages into 4 classes (0-3).
+- Replaces page from **lowest non-empty class**.
+- Class 0 (R=0, M=0) preferred for replacement.
+
+**5. LRU:**
+- Replaces page **least recently used** in past.
+- Implemented via counter or stack method.
+- Good approximation of OPT.
+- No Belady's Anomaly.
+- Page Faults = **8**.
+
+**Comparison:**
+```
+OPT < LRU ≈ SC ≈ NRU < FIFO
+(in terms of page faults — lower is better)
+```
+
+**Conclusion:**
+OPT is theoretically best but impractical. LRU closely approximates OPT and is widely used in practice. FIFO is simplest but least efficient. Second Chance and NRU offer good performance with low implementation overhead.
+
